@@ -6,9 +6,9 @@ export default function ManageExpense() {
   return (
     <View>
       <Text>This is manage expense</Text>
-      {/* <Pressable onPress={() => router.navigate("/")}>
-        <Text>Go Back</Text> */}
-      {/* </Pressable> */}
+      <Pressable onPress={() => router.navigate("/")}>
+        <Text>Go Back</Text>
+      </Pressable>
     </View>
   );
 };
