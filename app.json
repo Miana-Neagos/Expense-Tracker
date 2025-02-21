@@ -20,10 +20,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.miana_n.expensetracker"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ecbaa04b-cef0-47e1-b848-a5bfc880a76a"
+      }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
