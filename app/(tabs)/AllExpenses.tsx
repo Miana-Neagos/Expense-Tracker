@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import { StyleSheet, View, Text, Button } from "react-native";
-
-const AllExpenses = () => {
+export default function AllExpenses() {
     return (
         <View>
             <Text>This is All Expenses</Text>
@@ -11,4 +10,3 @@ const AllExpenses = () => {
 }
 const styles = StyleSheet.create({
 })
-export default AllExpenses;

@@ -6,16 +6,32 @@ import { Ionicons } from "@expo/vector-icons";
 export default function TabLayout() {
     return (
         <Tabs 
-        screenOptions={{
-            headerRight: () => (
-              <Pressable onPress={() => router.push("/ManageExpense")}>
-                <Ionicons name="add" size={24} color="black" />
-              </Pressable>
-            ),
-          }}
+        // screenOptions={{
+        //     headerRight: () => (
+        //       <Pressable onPress={() => router.push("/ManageExpense")}>
+        //         <Ionicons name="add" size={24} color="black" />
+        //       </Pressable>
+        //     ),
+        //   }}
         >
-            <Tabs.Screen name="RecentExpenses" options={{title: "Recent Expenses"}}/>
-            <Tabs.Screen name="AllExpenses" options={{title: "All Expenses"}}/>
+          <Tabs.Screen 
+                  name="AllExpenses"
+                  options={{
+                    title: "All Expenses",
+                    tabBarIcon: ({ color, size }) => (
+                      <Ionicons name="calendar" size={size} color={color} />
+                    ),
+                  }}
+          />
+            <Tabs.Screen 
+                    name="RecentExpenses"
+                    options={{
+                      title: "Recent Expenses",
+                      tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="hourglass" size={size} color={color} />
+                      ),
+                    }}
+            />
         </Tabs>
     )
 }

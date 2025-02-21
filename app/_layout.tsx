@@ -7,7 +7,7 @@ export default function RootLayout() {
       <Stack.Screen name="ManageExpense" 
       options={
         {
-          presentation: "modal",
+          // presentation: "modal",
           title: "Manage Expense"
         }
       }

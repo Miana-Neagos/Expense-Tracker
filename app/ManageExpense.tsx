@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 
-const ManageExpense = () => {
+export default function ManageExpense() {
   const router = useRouter();
   return (
     <View>
@@ -14,4 +14,4 @@ const ManageExpense = () => {
 };
 const styles = StyleSheet.create({});
 
-export default ManageExpense;
+
