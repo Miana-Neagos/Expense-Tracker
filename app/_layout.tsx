@@ -4,9 +4,19 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-      <Stack.Screen name="manage-expense" options={{presentation: "modal"}}/>
+      <Stack.Screen name="ManageExpense" 
+      options={
+        {
+          presentation: "modal",
+          title: "Manage Expense"
+        }
+      }
+      />
       
     </Stack>
+  );
+};
+
     // <Tabs
     //   screenOptions={{
     //     // headerStyle: { backgroundColor: "#4a148c" },
@@ -22,5 +32,3 @@ export default function RootLayout() {
     //       name="manage-expense"
     //       options={{ title: "Manage Expense" }} /> */}
     //   </Tabs>
-  );
-};
