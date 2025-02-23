@@ -1,7 +1,8 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 
 export default function ExpensesList() {
     return (
-        <FlatList/>
+        <View></View>
+        // <FlatList/>
     )
 };

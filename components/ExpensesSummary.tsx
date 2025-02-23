@@ -1,10 +1,25 @@
-import { Text, View } from "react-native"
+import { Text, View, StyleSheet } from "react-native";
+import { Expense } from "../types.ts/expenseDataTypes";
 
-export default function ExpensesSummary() {
+type ExpensesSummaryProps = {
+    expenses: Expense[],
+    periodName: string
+}
+
+
+export default function ExpensesSummary({periodName, expenses} : ExpensesSummaryProps) {
+
+    const expensesSum = expenses.reduce((sum, expense) => {
+        return sum + expense.amount
+    }, 0)
     return (
         <View>
-            <Text>Last 7 Days</Text>
-            <Text>Sum : $250</Text>
+            <Text>{periodName}</Text>
+            <Text>{expensesSum.toFixed(2)}</Text>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+
+})
