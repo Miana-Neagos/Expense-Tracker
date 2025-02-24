@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { GlobalStyles } from "../constants/styles";
+import { globalStyles, GlobalStyles } from "../constants/styles";
 
 type ExpensesSummaryProps = {
     expenses: Expense[],
@@ -15,15 +15,14 @@ export default function ExpensesSummary({periodName, expenses} : ExpensesSummary
     }, 0)
     return (
         <View style={styles.container}>
-            <Text style={styles.period}>{periodName}</Text>
-            <Text style={styles.sum}>{expensesSum.toFixed(2)}</Text>
+            <Text style={[globalStyles.textRegular, styles.period]}>{periodName}</Text>
+            <Text style={[globalStyles.textBold, styles.sum]}>{expensesSum.toFixed(2)}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         padding: 8,
         backgroundColor: GlobalStyles.colors.primary50,
         borderRadius: 6,
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
     },
     sum: {
         fontSize: 16,
-        fontWeight: 'bold',
         color: GlobalStyles.colors.primary500,
     }
 })

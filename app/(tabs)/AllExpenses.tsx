@@ -6,12 +6,14 @@ import DUMMY_EXPENSES from "../../data/dummyExpenses";
 
 export default function AllExpenses() {
     return (
-        <View>
+        <View style={styles.container}>
             {/* <Button title="Go Back" onPress={() => router.back()} /> */}
             <ExpensesOutput expenses={DUMMY_EXPENSES} expensesPeriod="Total"/>
         </View>
     )
 }
 const styles = StyleSheet.create({
-    
+        container: {
+        flex: 1,
+    }
 })

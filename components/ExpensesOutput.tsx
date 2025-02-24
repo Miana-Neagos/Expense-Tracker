@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
 import { Expense } from "../types.ts/expenseDataTypes";
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
         flex: 1,
         // padding: 24,
         backgroundColor: GlobalStyles.colors.primary700,
-        paddingHorizontal: 24,
-        paddingTop: 24,
-        paddingBottom: 6,
+        paddingHorizontal: 14,
+        paddingTop: 12,
+        paddingBottom: 12,
         gap: 15,
     }
 })

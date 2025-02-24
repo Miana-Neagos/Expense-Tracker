@@ -1,3 +1,5 @@
+import { StyleSheet } from "react-native";
+
 export const GlobalStyles = {
     colors: {
         "primary50": "#f3e5d7",   // Soft Beige
@@ -14,3 +16,18 @@ export const GlobalStyles = {
         "gray700": "#3e342c"      // Deep Brown-Gray
     }
 } 
+
+export const globalStyles = StyleSheet.create({
+    textRegular: {
+        fontFamily: 'Roboto_400Regular',
+    },
+    textBold: {
+        fontFamily: 'Roboto_700Bold',
+    },
+    textItalic: {
+        fontFamily: 'Roboto_400Regular_Italic',
+    },
+    textBoldItalic: {
+        fontFamily: 'Roboto_700Bold_Italic',
+    },
+})
