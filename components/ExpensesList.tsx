@@ -7,23 +7,27 @@ type ExpensesListProps = {
 export default function ExpensesList({ expenses }: ExpensesListProps) {
 //   console.log({ expenses });
 
+function renderExpenseItem({item}: {item: Expense}) {
+    return (
+        <View style={styles.container}>
+        <View style={styles.expenseItem}>
+            <Text style={styles.itemText}>{item.description}</Text>
+        </View>
+        <View>
+            <Text style={styles.itemText}>{item.amount}</Text>
+        </View>
+        <View>
+            <Text style={styles.itemText}>{item.date.toDateString()}</Text>
+        </View>
+    </View>
+    )
+}
+
   return (
     <View>
       <FlatList
         data={expenses}
-        renderItem={({item}) => (
-            <View style={styles.container}>
-                <View style={styles.expenseItem}>
-                    <Text style={styles.itemText}>{item.description}</Text>
-                </View>
-                <View>
-                    <Text style={styles.itemText}>{item.amount}</Text>
-                </View>
-                <View>
-                    <Text style={styles.itemText}>{item.date.toDateString()}</Text>
-                </View>
-            </View>
-        )}
+        renderItem={renderExpenseItem}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -37,9 +41,10 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         // gap: 10,
     },
-    // expenseItem: {
-    //     padding: 3,
-    // },
+    expenseItem: {
+        marginLeft: 3,
+        // padding: 3,
+    },
     itemText: {
         textAlign: 'left',
     }
