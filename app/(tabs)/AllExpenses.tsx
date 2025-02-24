@@ -7,11 +7,11 @@ import DUMMY_EXPENSES from "../../data/dummyExpenses";
 export default function AllExpenses() {
     return (
         <View>
-            <Text>This is All Expenses</Text>
-            <Button title="Go Back" onPress={() => router.back()} />
+            {/* <Button title="Go Back" onPress={() => router.back()} /> */}
             <ExpensesOutput expenses={DUMMY_EXPENSES} expensesPeriod="Total"/>
         </View>
     )
 }
 const styles = StyleSheet.create({
+    
 })

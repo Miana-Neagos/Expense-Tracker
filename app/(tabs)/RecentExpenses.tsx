@@ -6,13 +6,15 @@ import DUMMY_EXPENSES from "../../data/dummyExpenses";
 
 export default function RecentExpenses() {
     return (
-        <View>
-            <Text>This is Recent Expense</Text>
+        <View style={styles.container}>
             {/* <Link href="/_manage-expense">Go to Manage Expense</Link> */}
-            <Button title="Add Expense" onPress={() => router.push("/ManageExpense")} />
+            {/* <Button title="Add Expense" onPress={() => router.push("/ManageExpense")} /> */}
             <ExpensesOutput expenses={DUMMY_EXPENSES} expensesPeriod="7 days" />
         </View>
     )
 }
 const styles = StyleSheet.create({
+    // container: {
+    //     flex: 1,
+    // }
 })

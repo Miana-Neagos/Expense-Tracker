@@ -1,20 +1,26 @@
 import { Stack, Tabs } from "expo-router";
+import { Platform, StatusBar } from "react-native";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-      <Stack.Screen name="ManageExpense" 
-      options={
-        {
+    <Stack
+      screenOptions={{
+        headerTitleStyle: {
+          fontFamily: Platform.select({
+            android: "Roboto_400Regular",
+            ios: "Roboto-Regular",
+          }),
+        },
+      }}
+    >
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="ManageExpense"
+        options={{
           presentation: "modal",
-          title: "Manage Expense"
-        }
-      }
+          title: "Manage Expense",
+        }}
       />
-      
     </Stack>
   );
-};
-
- 
+}
