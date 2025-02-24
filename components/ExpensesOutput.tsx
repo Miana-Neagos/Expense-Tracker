@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { GlobalStyles } from "../constants/styles";
+import { globalColors } from "../constants/styles";
 
 type ExpensesOutputProps = {
     expenses: Expense[],
@@ -21,8 +21,7 @@ export default function ExpensesOutput({expenses, expensesPeriod} : ExpensesOutp
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // padding: 24,
-        backgroundColor: GlobalStyles.colors.primary700,
+        backgroundColor: globalColors.colors.primary200,
         paddingHorizontal: 14,
         paddingTop: 12,
         paddingBottom: 12,

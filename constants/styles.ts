@@ -1,33 +1,33 @@
 import { StyleSheet } from "react-native";
 
-export const GlobalStyles = {
-    colors: {
-        "primary50": "#f3e5d7",   // Soft Beige
-        "primary100": "#e0c3a6",  // Warm Tan
-        "primary200": "#c49a6c",  // Muted Ochre
-        "primary400": "#8c5f2e",  // Rich Umber
-        "primary500": "#704421",  // Deep Chestnut
-        "primary700": "#50321a",  // Dark Walnut
-        "primary800": "#3b2612",  // Earthy Espresso
-        "accent500": "#d6a429",   // Golden Mustard (earthy version of yellow)
-        "error50": "#f8dcd5",     // Soft Clay
-        "error500": "#b03a2e",    // Rust Red
-        "gray500": "#5c5147",     // Warm Gray
-        "gray700": "#3e342c"      // Deep Brown-Gray
-    }
-} 
+export const globalColors = {
+  colors: {
+    "primary50": "#a8a29e",  // Warm Stone (Soft neutral highlight)
+    "primary100": "#8c807b", // Muted Ash (Light contrast)
+    "primary200": "#625b58", // Aged Charcoal (Mid-tone)
+    "primary400": "#3d454c", // Deep Slate (Cool tone balance)
+    "primary500": "#334240", // Dark Graphite Green (Strong base)
+    "primary700": "#1d2620", // **Obsidian Green (Deep background)**
+    "primary800": "#0c110b", // **Pure Blackened Green (Extra depth)**
+    "accent500": "#c09553",  // Aged Gold (Rich, warm contrast)
+    "error50": "#e4b4a2",    // Soft Clay (Subtle warm error)
+    "error500": "#8c3d44",   // Dark Brick (Sophisticated error tone)
+    "gray500": "#5c5147",    // Warm Taupe (Balanced gray)
+    "gray700": "#3e342c"     // Deep Brown-Gray (Strong neutral)
+}
+};
 
-export const globalStyles = StyleSheet.create({
-    textRegular: {
-        fontFamily: 'Roboto_400Regular',
-    },
-    textBold: {
-        fontFamily: 'Roboto_700Bold',
-    },
-    textItalic: {
-        fontFamily: 'Roboto_400Regular_Italic',
-    },
-    textBoldItalic: {
-        fontFamily: 'Roboto_700Bold_Italic',
-    },
-})
+export const globalFont = StyleSheet.create({
+  textRegular: {
+    fontFamily: "Roboto_400Regular",
+  },
+  textBold: {
+    fontFamily: "Roboto_700Bold",
+  },
+  textItalic: {
+    fontFamily: "Roboto_400Regular_Italic",
+  },
+  textBoldItalic: {
+    fontFamily: "Roboto_700Bold_Italic",
+  },
+});

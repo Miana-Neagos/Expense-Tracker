@@ -2,17 +2,16 @@ import { router, Tabs } from "expo-router";
 import React from "react";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { GlobalStyles } from "../../constants/styles";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { globalColors } from "../../constants/styles";
 
 export default function TabLayout() {
   return (
     <Tabs
     screenOptions={{
-      headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
+      headerStyle: {backgroundColor: globalColors.colors.primary700},
       headerTintColor: 'white',
-      tabBarStyle: {backgroundColor: GlobalStyles.colors.primary500},
-      tabBarActiveTintColor: GlobalStyles.colors.accent500
+      tabBarStyle: {backgroundColor: globalColors.colors.primary700},
+      tabBarActiveTintColor: globalColors.colors.accent500
     //     headerRight: () => (
     //       <Pressable onPress={() => router.push("/ManageExpense")}>
     //         <Ionicons name="add" size={24} color="black" />

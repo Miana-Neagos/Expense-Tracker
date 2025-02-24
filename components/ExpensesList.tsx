@@ -1,6 +1,5 @@
 import { FlatList, View, Text, StyleSheet } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { globalStyles } from "../constants/styles";
 import ExpensesItem from "./ExpenseItem";
 type ExpensesListProps = {
   expenses: Expense[];
