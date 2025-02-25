@@ -23,19 +23,19 @@ export default function ExpensesItem({expense} : ExpenseItemProp) {
 
 const styles = StyleSheet.create({
     container: {
+        marginVertical: 4,
         paddingHorizontal: 8,
-        paddingVertical: 6,
-        marginVertical: 8,
+        paddingVertical: 3,
         backgroundColor: globalStyles.colors.primary500,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderRadius: 8,
+        borderRadius: 12,
         elevation: 4,
         alignItems: 'center',
     },
     description: {
         fontSize: 16,
-        color: globalStyles.colors.accent500,
+        // color: globalStyles.colors.accent500,
     },
     itemText: {
         color: globalStyles.colors.primary50,
@@ -49,7 +49,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         backgroundColor: globalStyles.colors.primary50,
         borderRadius: 8,
-        elevation: 4,
+        // elevation: 4,
+        borderWidth: 2,
+        borderColor: globalStyles.colors.accent500,
         width: '23%',
         alignItems: 'center',
         justifyContent: 'center',

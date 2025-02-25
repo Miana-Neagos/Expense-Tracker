@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        borderWidth: 2,
+        borderColor: globalStyles.colors.accent500,
     },
     period: {
         fontSize: 14,
