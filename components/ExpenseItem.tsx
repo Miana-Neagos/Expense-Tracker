@@ -1,6 +1,6 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { globalColors, globalFont } from "../constants/styles";
+import { globalStyles } from "../constants/styles";
 
 type ExpenseItemProp = {
     expense: Expense;
@@ -10,11 +10,11 @@ export default function ExpensesItem({expense} : ExpenseItemProp) {
         <Pressable>
             <View style={styles.container}>
                 <View>
-                    <Text style={[globalFont.textBold, styles.description, styles.itemText]}>{expense.description}</Text>
-                    <Text style={[globalFont.textBold, styles.itemText, styles.dateText]}>{expense.date.toDateString()}</Text>
+                    <Text style={[globalStyles.fonts.textBold, styles.itemText, styles.description ]}>{expense.description}</Text>
+                    <Text style={[globalStyles.fonts.textBold, styles.itemText, styles.dateText]}>{expense.date.toDateString()}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={[globalFont.textBold, styles.itemText, styles.amount]}>{expense.amount}</Text>
+                    <Text style={[globalStyles.fonts.textBold, styles.itemText, styles.amount]}>{expense.amount}</Text>
                 </View>
             </View>
         </Pressable>
@@ -23,20 +23,22 @@ export default function ExpensesItem({expense} : ExpenseItemProp) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 12,
+        paddingHorizontal: 8,
+        paddingVertical: 6,
         marginVertical: 8,
-        backgroundColor: globalColors.colors.primary500,
+        backgroundColor: globalStyles.colors.primary500,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderRadius: 6,
+        borderRadius: 8,
         elevation: 4,
         alignItems: 'center',
     },
     description: {
         fontSize: 16,
+        color: globalStyles.colors.accent500,
     },
     itemText: {
-        color: globalColors.colors.primary100,
+        color: globalStyles.colors.primary50,
         padding: 3,
     },
     dateText: {
@@ -45,8 +47,8 @@ const styles = StyleSheet.create({
     amountContainer: {
         paddingVertical: 4,
         paddingHorizontal: 12,
-        backgroundColor: globalColors.colors.primary100,
-        borderRadius: 4,
+        backgroundColor: globalStyles.colors.primary50,
+        borderRadius: 8,
         elevation: 4,
         width: '23%',
         alignItems: 'center',
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     },
     amount: {
        fontSize: 16, 
-       color: globalColors.colors.primary400,
+       color: globalStyles.colors.primary400,
     }
 })
 

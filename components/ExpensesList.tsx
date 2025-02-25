@@ -1,4 +1,4 @@
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
 import ExpensesItem from "./ExpenseItem";
 type ExpensesListProps = {
