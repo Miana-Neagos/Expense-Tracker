@@ -11,8 +11,9 @@ export default function TabLayout() {
         headerStyle: { backgroundColor: globalStyles.colors.primary200 },
         headerTintColor: globalStyles.colors.primary50,
         headerTitleAlign: "center",
-        tabBarStyle: { backgroundColor: globalStyles.colors.primary500 },
+        tabBarStyle: { backgroundColor: globalStyles.colors.primary5002 },
         tabBarActiveTintColor: globalStyles.colors.accent500,
+        tabBarInactiveTintColor: globalStyles.colors.primary50,
         headerRight: () => (
           <IconButton
             icon="add-circle"

@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { useEffect } from "react";
+import { globalStyles } from "../constants/styles";
 
 export default function RootLayout() {
   const [fontIsLoaded] = useFonts({
@@ -33,6 +34,11 @@ export default function RootLayout() {
       <StatusBar style="light" />
       <Stack
         screenOptions={{
+          headerStyle: { backgroundColor: globalStyles.colors.primary200 },
+          headerTintColor: globalStyles.colors.primary50,
+          headerTitleAlign: "center",
+          // tabBarStyle: { backgroundColor: globalStyles.colors.primary500 },
+          // tabBarActiveTintColor: globalStyles.colors.accent500,
           headerTitleStyle: {
             fontFamily: Platform.select({
               android: "Roboto_400Regular",
@@ -46,7 +52,7 @@ export default function RootLayout() {
           name="ManageExpense"
           options={{
             presentation: "modal",
-            title: "Manage Expense",
+            // title: "Manage Expense",
           }}
         />
       </Stack>

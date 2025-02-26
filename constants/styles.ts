@@ -2,11 +2,12 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = {
   colors: {
-    primary50: "#a8a29e", // Warm Stone (Soft neutral highlight)
+    primary50: "#dcd9d8", // Warm Stone (Soft neutral highlight)
     primary100: "#8c807b", // Muted Ash (Light contrast)
     primary200: "#625b58", // Aged Charcoal (Mid-tone)
     primary400: "#3d454c", // Deep Slate (Cool tone balance)
     primary500: "#334240", // Dark Graphite Green (Strong base)
+    primary5002: "#423335", // Chocolate Brown (Strong Base)
     primary700: "#1d2620", // **Obsidian Green (Deep background)**
     primary800: "#0c110b", // **Pure Blackened Green (Extra depth)**
     accent500: "#c09553", // Aged Gold (Rich, warm contrast)
