@@ -51,7 +51,8 @@ export default function RootLayout() {
         <Stack.Screen
           name="ManageExpense"
           options={{
-            presentation: "modal",
+            presentation: 'transparentModal',
+            animation: 'slide_from_bottom',
           }}
         />
       </Stack>
