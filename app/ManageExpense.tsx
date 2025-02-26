@@ -1,14 +1,26 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLayoutEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 
 export default function ManageExpense() {
-  const router = useRouter();
+  const navigation = useNavigation();
+  const {id} = useLocalSearchParams();
+  console.log(id);
+  const isEditing = !!id;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing? "Edit Expense" : "Add Expense"
+    })
+  },[isEditing, navigation])
+  
+
   return (
     <View>
-      <Text>This is manage expense</Text>
-      <Pressable onPress={() => router.navigate("/")}>
+      <Text>{isEditing ? "Edit an Expense" : "Adding a New Expense"}</Text>
+      {/* <Pressable onPress={() => router.navigate("/")}>
         <Text>Go Back</Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

@@ -1,17 +1,17 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
 import { globalStyles } from "../constants/styles";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { getFormattedDate } from "../utils/dateFormat";
 import { router } from "expo-router";
 
 type ExpenseItemProp = {
   expense: Expense;
 };
-export default function ExpensesItem({ expense }: ExpenseItemProp) {
+export default function ExpensesItem({ expense }: ExpenseItemProp) {  
   const pressHandler = () => {
-    router.push("/ManageExpense");
+    router.push(`/ManageExpense?id=${expense.id}`);
   };
+
   return (
     <View>
       <Pressable

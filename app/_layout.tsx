@@ -41,8 +41,8 @@ export default function RootLayout() {
           // tabBarActiveTintColor: globalStyles.colors.accent500,
           headerTitleStyle: {
             fontFamily: Platform.select({
-              android: "Roboto_400Regular",
-              ios: "Roboto-Regular",
+              android: "Roboto_700Bold",
+              ios: "Roboto-Bold",
             }),
           },
         }}
@@ -52,7 +52,6 @@ export default function RootLayout() {
           name="ManageExpense"
           options={{
             presentation: "modal",
-            // title: "Manage Expense",
           }}
         />
       </Stack>
