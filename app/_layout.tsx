@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { useEffect } from "react";
 import { globalStyles } from "../constants/styles";
+import ExpenseContextProvider from "../store/expense-context";
 
 export default function RootLayout() {
   const [fontIsLoaded] = useFonts({
@@ -31,7 +32,8 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar style="light" />
+    <StatusBar style="light" />
+    <ExpenseContextProvider>
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: globalStyles.colors.primary200 },
@@ -56,6 +58,7 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+    </ExpenseContextProvider>
     </>
   );
 }

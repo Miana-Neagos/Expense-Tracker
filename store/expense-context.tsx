@@ -17,15 +17,9 @@ type ExpenseAction =
 
 export const ExpenseContext = createContext<ExpenseContextType>({
   expenses: [],
-  addExpense: (expense) => {
-    console.log("add expense");
-  },
-  updateExpense: (id, data) => {
-    console.log("update expense");
-  },
-  deleteExpense: (expense) => {
-    console.log("delete expense");
-  },
+  addExpense: (expense) => {},
+  updateExpense: (id, data) => {},
+  deleteExpense: (expense) => {},
 });
 
 function expensesReducer(state: Expense[], action: ExpenseAction): Expense[] {
@@ -61,16 +55,13 @@ export default function ExpenseContextProvider({ children }: {children: React.Re
     dispatch({ type: "DELETE", payload: id });
   };
 
+  const value = {        
+    expenses: expenseState,
+    addExpense,
+    updateExpense,
+    deleteExpense,}
+
   return (
-    <ExpenseContext.Provider
-      value={{
-        expenses: expenseState,
-        addExpense,
-        updateExpense,
-        deleteExpense,
-      }}
-    >
-      {children}
-    </ExpenseContext.Provider>
+    <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
   );
 }
