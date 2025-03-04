@@ -9,9 +9,7 @@ import { getRecentExpenses } from "../../utils/getRecentExpenses";
 export default function RecentExpenses() {
     const expensesContext = useContext(ExpenseContext);
     
-    const recentExpenses = getRecentExpenses(expensesContext.expenses, 7);
-    console.log({recentExpenses});
-    
+    const recentExpenses = getRecentExpenses(expensesContext.expenses, 7);    
     
     return (
         <View style={styles.container}>

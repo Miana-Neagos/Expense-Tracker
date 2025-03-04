@@ -8,13 +8,13 @@ import { ExpenseContext } from "../../store/expense-context";
 
 export default function AllExpenses() {
   const expensesContext = useContext(ExpenseContext);
-  const sortedEExpenses = expensesContext.expenses.sort(
+  const sortedExpenses = expensesContext.expenses.sort(
     (a, b) => b.date.getTime() - a.date.getTime()
   );
   return (
     <View style={styles.container}>
       {/* <Button title="Go Back" onPress={() => router.back()} /> */}
-      <ExpensesOutput expenses={sortedEExpenses} expensesPeriod="Total" />
+      <ExpensesOutput expenses={sortedExpenses} expensesPeriod="Total" />
     </View>
   );
 }

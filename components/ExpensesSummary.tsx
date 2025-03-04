@@ -7,8 +7,7 @@ type ExpensesSummaryProps = {
     periodName: string
 }
 
-
-export default function ExpensesSummary({periodName, expenses} : ExpensesSummaryProps) {
+export default function ExpensesSummary({periodName, expenses} : ExpensesSummaryProps) {    
 
     const expensesSum = expenses.reduce((sum, expense) => {
         return sum + expense.amount
