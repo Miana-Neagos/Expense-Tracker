@@ -1,6 +1,7 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet, Text } from "react-native";
 import { Expense } from "../types.ts/expenseDataTypes";
 import ExpensesItem from "./ExpenseItem";
+import { globalStyles } from "../constants/styles";
 type ExpensesListProps = {
   expenses: Expense[];
 };
@@ -20,6 +21,11 @@ export default function ExpensesList({ expenses }: ExpensesListProps) {
         data={expenses}
         renderItem={renderExpenseItem}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+          <Text style={[globalStyles.fonts.textBold, { color: globalStyles.colors.gray700}]}>No expenses added.</Text>
+        </View>
+        }
       />
     </View>
   );
@@ -28,5 +34,10 @@ export default function ExpensesList({ expenses }: ExpensesListProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  emptyContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 18,
   },
 });
