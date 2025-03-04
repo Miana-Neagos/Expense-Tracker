@@ -9,7 +9,7 @@ type CustomButtonProps = {
     style?: StyleProp<ViewStyle | TextStyle>
 }
 const CustomButton = ({children, onPress, mode, style} : CustomButtonProps) => {
-    console.log({children});
+    // console.log({children});
     
     return (
         <View style={style}>

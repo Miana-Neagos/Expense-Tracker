@@ -1,14 +1,16 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View, Text, Pressable, Button } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
 import CustomButton from "../components/UI/CustomButton";
+import { ExpenseContext } from "../store/expense-context";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const isEditing = !!id;
+  const expensesContext = useContext(ExpenseContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -16,18 +18,18 @@ export default function ManageExpense() {
     });
   }, [isEditing, navigation]);
 
-  const deleteExpenseHandler = () => {
-    console.log("delete expense");
+  const deleteExpenseHandler = (id : string) => {
+    expensesContext.deleteExpense(id);
     router.back();
   };
 
   const cancelHandler = () => {
-    console.log("cancel pressed");
+    // console.log("cancel pressed");
     router.back();
   };
 
   const confirmHandler = () => {
-    console.log("confirm is pressed");
+    // console.log("confirm is pressed");
     router.back();
   };
 

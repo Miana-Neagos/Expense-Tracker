@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 import { Expense } from "../types.ts/expenseDataTypes";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import DUMMY_EXPENSES from "../data/dummyExpenses";
 
 type ExpenseContextType = {
   expenses: Expense[];
@@ -34,8 +35,16 @@ function expensesReducer(state: Expense[], action: ExpenseAction): Expense[] {
           ? { ...expense, ...action.payload.data }
           : expense
       );
+      // const updatedExpenseIndex = state.findIndex(expense => expense.id === action.payload.id);
+      // console.log({updatedExpenseIndex});
+      // const updatedItem = state[updatedExpenseIndex];
+      // const updatedItemCopy = {...updatedItem, ...action.payload.data};
+      // const updatedExpensesState = [...state];
+      // updatedExpensesState[updatedExpenseIndex] = updatedItemCopy;
+      // return updatedExpensesState;
+
     case "DELETE":
-      console.log("delete");
+      // console.log("delete");
       return state.filter(expense => expense.id !== action.payload)
     default:
       return state;
@@ -43,7 +52,7 @@ function expensesReducer(state: Expense[], action: ExpenseAction): Expense[] {
 }
 
 export default function ExpenseContextProvider({ children }: {children: React.ReactNode}) {
-  const [expenseState, dispatch] = useReducer(expensesReducer, []);
+  const [expenseState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);
 
   const addExpense = (expenseData: Expense) => {
     dispatch({ type: "ADD", payload: expenseData });
