@@ -7,16 +7,19 @@ import { ExpenseContext } from "../../store/expense-context";
 // import 'react-native-get-random-values';
 
 export default function AllExpenses() {
-    const expensesContext = useContext(ExpenseContext);
-    return (
-        <View style={styles.container}>
-            {/* <Button title="Go Back" onPress={() => router.back()} /> */}
-            <ExpensesOutput expenses={expensesContext.expenses} expensesPeriod="Total"/>
-        </View>
-    )
+  const expensesContext = useContext(ExpenseContext);
+  const sortedEExpenses = expensesContext.expenses.sort(
+    (a, b) => b.date.getTime() - a.date.getTime()
+  );
+  return (
+    <View style={styles.container}>
+      {/* <Button title="Go Back" onPress={() => router.back()} /> */}
+      <ExpensesOutput expenses={sortedEExpenses} expensesPeriod="Total" />
+    </View>
+  );
 }
 const styles = StyleSheet.create({
-        container: {
-        flex: 1,
-    }
-})
+  container: {
+    flex: 1,
+  },
+});
