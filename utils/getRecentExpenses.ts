@@ -6,7 +6,7 @@ export const getRecentExpenses = (expenses: Expense[], period: number) => {
     xDaysAgo.setDate(today.getDate() - 7);
 
     return expenses
-        .filter(expense => expense.date >= xDaysAgo)
+        .filter(expense => expense.date >= xDaysAgo && expense.date <= today)
         // .sort((a,b) => a.date > b.date ? -1 : 1);
         .sort((a,b) => b.date.getTime() - a.date.getTime());
 }

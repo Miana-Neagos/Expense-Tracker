@@ -5,6 +5,8 @@ import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
 import CustomButton from "../components/UI/CustomButton";
 import { ExpenseContext } from "../store/expense-context";
+import ExpensesItem from "../components/ExpenseItem";
+import { Expense } from "../types.ts/expenseDataTypes";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
@@ -12,13 +14,22 @@ export default function ManageExpense() {
   const isEditing = !!id;
   const expensesContext = useContext(ExpenseContext);
 
+  const targetedExpense = expensesContext.expenses.find(
+    (expense) => expense.id === id
+  );
+  const testData = {
+    description: "Test",
+    amount: 0,
+    date: new Date('2000-00-00'),
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
   }, [isEditing, navigation]);
 
-  const deleteExpenseHandler = (id : string) => {
+  const deleteExpenseHandler = (id: string) => {
     expensesContext.deleteExpense(id);
     router.back();
   };
@@ -29,12 +40,16 @@ export default function ManageExpense() {
   };
 
   const confirmHandler = () => {
+    isEditing
+      ? expensesContext.updateExpense(id as string, targetedExpense as Expense)
+      : expensesContext.addExpense(testData as Expense);
     // console.log("confirm is pressed");
     router.back();
   };
 
   return (
     <View style={styles.container}>
+      {targetedExpense && <ExpensesItem expense={targetedExpense} />}
       <View style={styles.buttonContainer}>
         <CustomButton mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
@@ -49,7 +64,7 @@ export default function ManageExpense() {
             icon="trash"
             color={globalStyles.colors.accent500}
             size={28}
-            onPress={deleteExpenseHandler}
+            onPress={() => deleteExpenseHandler(id as string)}
           />
         )}
       </View>
@@ -70,7 +85,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    minWidth: '30%',
+    minWidth: "30%",
   },
   deleteButton: {
     marginTop: 16,

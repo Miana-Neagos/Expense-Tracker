@@ -44,7 +44,6 @@ function expensesReducer(state: Expense[], action: ExpenseAction): Expense[] {
       // return updatedExpensesState;
 
     case "DELETE":
-      // console.log("delete");
       return state.filter(expense => expense.id !== action.payload)
     default:
       return state;
@@ -58,9 +57,11 @@ export default function ExpenseContextProvider({ children }: {children: React.Re
     dispatch({ type: "ADD", payload: expenseData });
   };
   const updateExpense = (id: string, updatedData: Expense) => {
+    console.log('this is Update - Context');
+    
     dispatch({ type: "UPDATE", payload: {id: id, data: updatedData} });
   };
-  const deleteExpense = (id: string) => {
+  const deleteExpense = (id: string) => {    
     dispatch({ type: "DELETE", payload: id });
   };
 
