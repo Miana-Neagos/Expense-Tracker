@@ -7,14 +7,16 @@ import CustomButton from "../components/UI/CustomButton";
 import { ExpenseContext } from "../store/expense-context";
 import ExpensesItem from "../components/ExpenseItem";
 import { Expense } from "../types.ts/expenseDataTypes";
+import { useExpenseAtom } from "../store/jotai";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const isEditing = !!id;
-  const expensesContext = useContext(ExpenseContext);
+  // const expensesContext = useContext(ExpenseContext);
+  const { expenses, addExpense, updateExpense, deleteExpense } = useExpenseAtom();
 
-  const targetedExpense = expensesContext.expenses.find(
+  const targetedExpense = expenses.find(
     (expense) => expense.id === id
   );
   const testData = {
@@ -30,9 +32,9 @@ export default function ManageExpense() {
   }, [isEditing, navigation]);
 
   const deleteExpenseHandler = (id: string) => {
-    expensesContext.deleteExpense(id);
+    deleteExpense(id);
     router.back();
-  };
+  }
 
   const cancelHandler = () => {
     // console.log("cancel pressed");
@@ -41,8 +43,8 @@ export default function ManageExpense() {
 
   const confirmHandler = () => {
     isEditing
-      ? expensesContext.updateExpense(id as string, targetedExpense as Expense)
-      : expensesContext.addExpense(testData as Expense);
+      ? updateExpense(id as string, targetedExpense as Expense)
+      : addExpense(testData as Expense);
     // console.log("confirm is pressed");
     router.back();
   };

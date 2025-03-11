@@ -33,7 +33,7 @@ export default function RootLayout() {
   return (
     <>
     <StatusBar style="light" />
-    <ExpenseContextProvider>
+    {/* <ExpenseContextProvider> */}
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: globalStyles.colors.primary200 },
@@ -58,7 +58,7 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </ExpenseContextProvider>
+    {/* </ExpenseContextProvider> */}
     </>
   );
 }

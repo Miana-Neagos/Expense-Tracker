@@ -5,11 +5,13 @@ import DUMMY_EXPENSES from "../../data/dummyExpenses";
 import { useContext } from "react";
 import { ExpenseContext } from "../../store/expense-context";
 import { getRecentExpenses } from "../../utils/getRecentExpenses";
+import { useExpenseAtom } from "../../store/jotai";
 
 export default function RecentExpenses() {
-    const expensesContext = useContext(ExpenseContext);
+    // const expensesContext = useContext(ExpenseContext);
+    const {expenses} = useExpenseAtom();
     
-    const recentExpenses = getRecentExpenses(expensesContext.expenses, 7);    
+    const recentExpenses = getRecentExpenses(expenses, 7);    
     
     return (
         <View style={styles.container}>
