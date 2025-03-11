@@ -9,7 +9,7 @@ export const useExpenseAtom = () => {
     const [expenses, setExpenses] = useAtom(expenseAtom);
 
     const addExpense = (expenseData: Expense) => {
-        const newExpense = { ...expenseData, id: uuidv4()}
+        const newExpense = { ...expenseData}
         setExpenses(prevExpenses => [newExpense, ...prevExpenses])
     };
 
@@ -23,3 +23,23 @@ export const useExpenseAtom = () => {
 
     return {expenses, addExpense, updateExpense, deleteExpense};
 };
+
+export const formAtom = atom({
+  amount: '',
+  date: '',
+  description: '',
+})
+
+export const useFormAtom = () => {
+  const [formData, setFormData] = useAtom(formAtom);
+
+  const updateForm = (key: 'amount' | 'date' | 'description', value: string) => {
+    setFormData((prevFormData) => ({...prevFormData, [key]:value}))
+  };
+
+  const resetForm = () => {
+    setFormData({amount: '', date: '', description: ''})
+  }
+
+  return {formData, updateForm, resetForm};
+}

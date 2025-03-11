@@ -1,58 +1,60 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import { useContext, useLayoutEffect } from "react";
-import { StyleSheet, View, Text, Pressable, Button } from "react-native";
+import { useLayoutEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
 import CustomButton from "../components/UI/CustomButton";
-import { ExpenseContext } from "../store/expense-context";
 import ExpensesItem from "../components/ExpenseItem";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { useExpenseAtom } from "../store/jotai";
+import { useExpenseAtom, useFormAtom } from "../store/jotai";
 import { ExpenseForm } from "../components/ManageExpense/ExpenseForm";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
   const { id } = useLocalSearchParams();
   const isEditing = !!id;
-  // const expensesContext = useContext(ExpenseContext);
-  const { expenses, addExpense, updateExpense, deleteExpense } = useExpenseAtom();
+  const { expenses, addExpense, updateExpense, deleteExpense } =
+    useExpenseAtom();
+  const { formData, resetForm } = useFormAtom();
 
-  const targetedExpense = expenses.find(
-    (expense) => expense.id === id
-  );
-  const testData = {
-    description: "Test",
-    amount: 0,
-    date: new Date('2000-00-00'),
+  console.log("Manage Expense: ", formData);
+
+  const targetedExpense = expenses.find((expense) => expense.id === id);
+  const formattedExpense = {
+    id: isEditing ? (id as string) : uuidv4(),
+    amount: parseFloat(formData.amount) || 0,
+    date: new Date(formData.date),
+    description: formData.description,
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
+    if(!isEditing) resetForm();
   }, [isEditing, navigation]);
 
   const deleteExpenseHandler = (id: string) => {
     deleteExpense(id);
     router.back();
-  }
+  };
 
   const cancelHandler = () => {
-    // console.log("cancel pressed");
+    resetForm();
     router.back();
   };
 
   const confirmHandler = () => {
     isEditing
       ? updateExpense(id as string, targetedExpense as Expense)
-      : addExpense(testData as Expense);
-    // console.log("confirm is pressed");
+      : addExpense(formattedExpense),resetForm();
     router.back();
   };
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
+      {!isEditing && <ExpenseForm /> }
       {targetedExpense && <ExpensesItem expense={targetedExpense} />}
       <View style={styles.buttonContainer}>
         <CustomButton mode="flat" onPress={cancelHandler} style={styles.button}>

@@ -1,11 +1,16 @@
 import { View, StyleSheet, Text } from "react-native";
 import CustomInput from "./CustomInput";
 import { globalStyles } from "../../constants/styles";
+import { useFormAtom } from "../../store/jotai";
+
+// type ExpenseFormProp = {
+//   isEditing: boolean;
+// };
 
 export const ExpenseForm = () => {
-  const amountInputHandler = (input: string) => {
-    console.log("Amount input handler", input);
-  };
+  const {formData, updateForm} = useFormAtom();
+  console.log('Expense FORM: ', formData);
+  
   return (
     <View style={styles.formContainer}>
       <Text style={styles.title}>Your new expense:</Text>
@@ -14,7 +19,8 @@ export const ExpenseForm = () => {
           label="Amount"
           textInputConfig={{
             keyboardType: "decimal-pad",
-            onChangeText: amountInputHandler,
+            onChangeText: (input) => updateForm('amount', input),
+            value: formData.amount
           }}
           style={styles.rowInput}
         />
@@ -24,9 +30,8 @@ export const ExpenseForm = () => {
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
             keyboardType: "number-pad",
-            onChangeText: (input) => {
-              console.log("Date input handler", input);
-            },
+            onChangeText: (input) => updateForm('date', input),
+            value: formData.date,
           }}
           style={styles.rowInput}
         />
@@ -34,12 +39,10 @@ export const ExpenseForm = () => {
       <CustomInput
         label="Description"
         textInputConfig={{
-          // placeholder: 'Enter description',
           multiline: true,
           autoCorrect: false,
-          onChangeText: (input) => {
-            console.log("Description input handler", input);
-          },
+          onChangeText: (input) => updateForm('description', input),
+          value: formData.description,
         }}
       />
     </View>
