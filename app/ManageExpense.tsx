@@ -8,6 +8,7 @@ import { ExpenseContext } from "../store/expense-context";
 import ExpensesItem from "../components/ExpenseItem";
 import { Expense } from "../types.ts/expenseDataTypes";
 import { useExpenseAtom } from "../store/jotai";
+import { ExpenseForm } from "../components/ManageExpense/ExpenseForm";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
@@ -51,6 +52,7 @@ export default function ManageExpense() {
 
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       {targetedExpense && <ExpensesItem expense={targetedExpense} />}
       <View style={styles.buttonContainer}>
         <CustomButton mode="flat" onPress={cancelHandler} style={styles.button}>
