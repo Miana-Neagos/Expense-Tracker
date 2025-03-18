@@ -1,14 +1,14 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
+import { v4 as uuidv4 } from "uuid";
 import { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
 import CustomButton from "../components/UI/CustomButton";
 import ExpensesItem from "../components/ExpenseItem";
-import { Expense } from "../types.ts/expenseDataTypes";
+import { Expense } from "../types/expenseDataTypes";
 import { useExpenseAtom, useFormAtom } from "../store/jotai";
 import { ExpenseForm } from "../components/ManageExpense/ExpenseForm";
-import { v4 as uuidv4 } from "uuid";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
@@ -16,17 +16,17 @@ export default function ManageExpense() {
   const isEditing = !!id;
   const { expenses, addExpense, updateExpense, deleteExpense } =
     useExpenseAtom();
-  const { formData, resetForm } = useFormAtom();
+  const { newFormData, resetForm } = useFormAtom();
 
-  console.log("Manage Expense: ", formData);
+  console.log("Manage Expense: ", newFormData);
 
   const targetedExpense = expenses.find((expense) => expense.id === id);
-  const formattedExpense = {
-    id: isEditing ? (id as string) : uuidv4(),
-    amount: parseFloat(formData.amount) || 0,
-    date: new Date(formData.date),
-    description: formData.description,
-  };
+  // const formattedExpense = {
+  //   id: isEditing ? (id as string) : uuidv4(),
+  //   amount: parseFloat(newFormData.amount) || 0,
+  //   date: new Date(newFormData.date),
+  //   description: newFormData.description,
+  // };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -45,16 +45,16 @@ export default function ManageExpense() {
     router.back();
   };
 
-  const confirmHandler = () => {
+  const confirmHandler = (expensedata: Omit<Expense, "id">) => {
     isEditing
       ? updateExpense(id as string, targetedExpense as Expense)
-      : addExpense(formattedExpense),resetForm();
+      : addExpense({ id: uuidv4(), description: expensedata.description, amount: expensedata.amount, date: expensedata.date }), resetForm();
     router.back();
   };
 
   return (
     <View style={styles.container}>
-      {!isEditing && <ExpenseForm /> }
+      <ExpenseForm onCancel={cancelHandler} editingLabel={isEditing} onsubmit={confirmHandler}/>
       {targetedExpense && <ExpensesItem expense={targetedExpense} />}
       <View style={styles.buttonContainer}>
         <CustomButton mode="flat" onPress={cancelHandler} style={styles.button}>

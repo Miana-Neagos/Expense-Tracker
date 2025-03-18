@@ -1,16 +1,59 @@
 import { View, StyleSheet, Text } from "react-native";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import CustomInput from "./CustomInput";
 import { globalStyles } from "../../constants/styles";
-import { useFormAtom } from "../../store/jotai";
+import { useFormAtom, useExpenseAtom } from "../../store/jotai";
+import CustomButton from "../UI/CustomButton";
+import { v4 as uuidv4 } from "uuid";
+import { Expense } from "../../types.ts/expenseDataTypes";
 
-// type ExpenseFormProp = {
-//   isEditing: boolean;
-// };
+type ExpenseProps = {
+  onCancel: () => void;
+  editingLabel?: boolean;
+  onsubmit: (expensedata: Omit<Expense, "id">) => void;
+};
 
-export const ExpenseForm = () => {
-  const {formData, updateForm} = useFormAtom();
-  console.log('Expense FORM: ', formData);
-  
+export const ExpenseForm = ({
+  onCancel,
+  editingLabel,
+  onsubmit,
+}: ExpenseProps) => {
+  const { newFormData, updateForm, resetForm } = useFormAtom();
+  console.log("Expense FORM: ", newFormData);
+  // const { id } = useLocalSearchParams();
+  // const isEditing = !!id;
+  // const { expenses, addExpense, updateExpense, deleteExpense } =
+  //   useExpenseAtom();
+
+  // const targetedExpense = expenses.find((expense) => expense.id === id);
+  // const formattedExpense = {
+  //   id: editingLabel ? (id as string) : uuidv4(),
+  //   amount: parseFloat(newFormData.amount) || 0,
+  //   date: new Date(newFormData.date),
+  //   description: newFormData.description,
+  // };
+
+  // const confirmHandler = () => {
+  //   editingLabel
+  //     ? updateExpense(id as string, targetedExpense as Expense)
+  //     : addExpense(formattedExpense),
+  //     resetForm();
+  //   router.back();
+  // };
+
+  const handleSubmit = () => {
+    const formattedExpense = {
+      // id: editingLabel ? id : uuidv4(),
+      amount: parseFloat(newFormData.amount) || 0,
+      date: new Date(newFormData.date),
+      description: newFormData.description,
+    };
+    console.log("Formatted Expense: ", formattedExpense);
+    
+    onsubmit(formattedExpense);
+    resetForm();
+  };
+
   return (
     <View style={styles.formContainer}>
       <Text style={styles.title}>Your new expense:</Text>
@@ -19,8 +62,8 @@ export const ExpenseForm = () => {
           label="Amount"
           textInputConfig={{
             keyboardType: "decimal-pad",
-            onChangeText: (input) => updateForm('amount', input),
-            value: formData.amount
+            onChangeText: (input) => updateForm("amount", input),
+            value: newFormData.amount,
           }}
           style={styles.rowInput}
         />
@@ -30,8 +73,8 @@ export const ExpenseForm = () => {
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
             keyboardType: "number-pad",
-            onChangeText: (input) => updateForm('date', input),
-            value: formData.date,
+            onChangeText: (input) => updateForm("date", input),
+            value: newFormData.date,
           }}
           style={styles.rowInput}
         />
@@ -41,10 +84,18 @@ export const ExpenseForm = () => {
         textInputConfig={{
           multiline: true,
           autoCorrect: false,
-          onChangeText: (input) => updateForm('description', input),
-          value: formData.description,
+          onChangeText: (input) => updateForm("description", input),
+          value: newFormData.description,
         }}
       />
+      <View style={styles.buttonContainer}>
+        <CustomButton mode="flat" onPress={onCancel} style={styles.button}>
+          Cancel
+        </CustomButton>
+        <CustomButton onPress={handleSubmit} style={styles.button}>
+          {editingLabel ? "Update" : "Add"}
+        </CustomButton>
+      </View>
     </View>
   );
 };
@@ -66,5 +117,15 @@ const styles = StyleSheet.create({
   },
   rowInput: {
     flex: 1,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
+  },
+  button: {
+    marginTop: 20,
+    minWidth: "30%",
   },
 });

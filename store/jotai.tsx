@@ -1,7 +1,6 @@
 import { atom, useAtom } from "jotai";
 import { Expense } from "../types.ts/expenseDataTypes";
 import DUMMY_EXPENSES from "../data/dummyExpenses";
-import { v4 as uuidv4 } from "uuid";
 
 export const expenseAtom = atom<Expense[]>(DUMMY_EXPENSES);
 
@@ -31,7 +30,7 @@ export const formAtom = atom({
 })
 
 export const useFormAtom = () => {
-  const [formData, setFormData] = useAtom(formAtom);
+  const [newFormData, setFormData] = useAtom(formAtom);
 
   const updateForm = (key: 'amount' | 'date' | 'description', value: string) => {
     setFormData((prevFormData) => ({...prevFormData, [key]:value}))
@@ -41,5 +40,5 @@ export const useFormAtom = () => {
     setFormData({amount: '', date: '', description: ''})
   }
 
-  return {formData, updateForm, resetForm};
+  return {newFormData, updateForm, resetForm};
 }
