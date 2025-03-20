@@ -19,32 +19,10 @@ export const ExpenseForm = ({
   onsubmit,
 }: ExpenseProps) => {
   const { newFormData, updateForm, resetForm } = useFormAtom();
-  console.log("Expense FORM: ", newFormData);
-  // const { id } = useLocalSearchParams();
-  // const isEditing = !!id;
-  // const { expenses, addExpense, updateExpense, deleteExpense } =
-  //   useExpenseAtom();
-
-  // const targetedExpense = expenses.find((expense) => expense.id === id);
-  // const formattedExpense = {
-  //   id: editingLabel ? (id as string) : uuidv4(),
-  //   amount: parseFloat(newFormData.amount) || 0,
-  //   date: new Date(newFormData.date),
-  //   description: newFormData.description,
-  // };
-
-  // const confirmHandler = () => {
-  //   editingLabel
-  //     ? updateExpense(id as string, targetedExpense as Expense)
-  //     : addExpense(formattedExpense),
-  //     resetForm();
-  //   router.back();
-  // };
 
   const handleSubmit = () => {
     const formattedExpense = {
-      // id: editingLabel ? id : uuidv4(),
-      amount: parseFloat(newFormData.amount) || 0,
+      amount: +(newFormData.amount) || 0,
       date: new Date(newFormData.date),
       description: newFormData.description,
     };

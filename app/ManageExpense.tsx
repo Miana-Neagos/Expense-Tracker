@@ -6,7 +6,7 @@ import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
 import CustomButton from "../components/UI/CustomButton";
 import ExpensesItem from "../components/ExpenseItem";
-import { Expense } from "../types/expenseDataTypes";
+import { Expense } from "../types.ts/expenseDataTypes";
 import { useExpenseAtom, useFormAtom } from "../store/jotai";
 import { ExpenseForm } from "../components/ManageExpense/ExpenseForm";
 
@@ -32,7 +32,7 @@ export default function ManageExpense() {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
-    if(!isEditing) resetForm();
+    if (!isEditing) resetForm();
   }, [isEditing, navigation]);
 
   const deleteExpenseHandler = (id: string) => {
@@ -48,32 +48,51 @@ export default function ManageExpense() {
   const confirmHandler = (expensedata: Omit<Expense, "id">) => {
     isEditing
       ? updateExpense(id as string, targetedExpense as Expense)
-      : addExpense({ id: uuidv4(), description: expensedata.description, amount: expensedata.amount, date: expensedata.date }), resetForm();
+      : addExpense({
+          id: uuidv4(),
+          description: expensedata.description,
+          amount: expensedata.amount,
+          date: expensedata.date,
+        }),
+      resetForm();
     router.back();
   };
 
   return (
     <View style={styles.container}>
-      <ExpenseForm onCancel={cancelHandler} editingLabel={isEditing} onsubmit={confirmHandler}/>
-      {targetedExpense && <ExpensesItem expense={targetedExpense} />}
-      <View style={styles.buttonContainer}>
-        <CustomButton mode="flat" onPress={cancelHandler} style={styles.button}>
-          Cancel
-        </CustomButton>
-        <CustomButton onPress={confirmHandler} style={styles.button}>
-          {isEditing ? "Update" : "Add"}
-        </CustomButton>
-      </View>
-      <View style={styles.deleteButton}>
-        {isEditing && (
-          <IconButton
-            icon="trash"
-            color={globalStyles.colors.accent500}
-            size={28}
-            onPress={() => deleteExpenseHandler(id as string)}
-          />
-        )}
-      </View>
+      {isEditing ? (
+        <>
+          <ExpensesItem expense={targetedExpense} />
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              mode="flat"
+              onPress={cancelHandler}
+              style={styles.button}
+            >
+              Cancel
+            </CustomButton>
+            <CustomButton onPress={() => targetedExpense && confirmHandler(targetedExpense)} style={styles.button}>
+              {/* {isEditing ? "Update" : "Add"} */}Update
+            </CustomButton>
+          </View>
+          <View style={styles.deleteButton}>
+            {isEditing && (
+              <IconButton
+                icon="trash"
+                color={globalStyles.colors.accent500}
+                size={28}
+                onPress={() => deleteExpenseHandler(id as string)}
+              />
+            )}
+          </View>
+        </>
+      ) : (
+        <ExpenseForm
+          onCancel={cancelHandler}
+          editingLabel={isEditing}
+          onsubmit={confirmHandler}
+        />
+      )}
     </View>
   );
 }

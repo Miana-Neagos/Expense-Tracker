@@ -5,11 +5,11 @@ import { getFormattedDate } from "../utils/dateFormat";
 import { router } from "expo-router";
 
 type ExpenseItemProp = {
-  expense: Expense;
+  expense?: Expense;
 };
 export default function ExpensesItem({ expense }: ExpenseItemProp) {  
   const pressHandler = () => {
-    router.push(`/ManageExpense?id=${expense.id}`);
+    router.push(`/ManageExpense?id=${expense?.id}`);
   };
 
   return (
