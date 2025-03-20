@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Expense } from "../../types.ts/expenseDataTypes";
 import { useEffect } from "react";
 import { getFormattedDate } from "../../utils/dateFormat";
+import { validateExpenseInputs } from "../../input-validation/validation-schema";
 
 type ExpenseProps = {
   onCancel: () => void;
@@ -26,12 +27,16 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
   }, [existingExpense])
 
   const handleSubmit = () => {
+
+    const validationResults = validateExpenseInputs(newFormData);
+
     const formattedExpense = {
-      amount: +(newFormData.amount) || 0,
-      date: new Date(newFormData.date),
-      description: newFormData.description,
+      amount: validationResults.data.amount,
+      date: new Date(validationResults.data?.date || Date.now()),
+      description: validationResults.data.description,
     };
     console.log("Formatted Expense: ", formattedExpense);
+
     
     onsubmit(formattedExpense);
     resetForm();
