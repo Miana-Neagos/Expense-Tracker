@@ -18,15 +18,7 @@ export default function ManageExpense() {
     useExpenseAtom();
   const { newFormData, resetForm } = useFormAtom();
 
-  console.log("Manage Expense: ", newFormData);
-
   const targetedExpense = expenses.find((expense) => expense.id === id);
-  // const formattedExpense = {
-  //   id: isEditing ? (id as string) : uuidv4(),
-  //   amount: parseFloat(newFormData.amount) || 0,
-  //   date: new Date(newFormData.date),
-  //   description: newFormData.description,
-  // };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,7 +39,7 @@ export default function ManageExpense() {
 
   const confirmHandler = (expensedata: Omit<Expense, "id">) => {
     isEditing
-      ? updateExpense(id as string, targetedExpense as Expense)
+      ? updateExpense(id as string, expensedata as Expense)
       : addExpense({
           id: uuidv4(),
           description: expensedata.description,
@@ -60,21 +52,12 @@ export default function ManageExpense() {
 
   return (
     <View style={styles.container}>
-      {isEditing ? (
-        <>
-          <ExpensesItem expense={targetedExpense} />
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              mode="flat"
-              onPress={cancelHandler}
-              style={styles.button}
-            >
-              Cancel
-            </CustomButton>
-            <CustomButton onPress={() => targetedExpense && confirmHandler(targetedExpense)} style={styles.button}>
-              {/* {isEditing ? "Update" : "Add"} */}Update
-            </CustomButton>
-          </View>
+        <ExpenseForm
+          onCancel={cancelHandler}
+          editingLabel={isEditing}
+          onsubmit={confirmHandler}
+          existingExpense={targetedExpense}
+        />
           <View style={styles.deleteButton}>
             {isEditing && (
               <IconButton
@@ -85,14 +68,6 @@ export default function ManageExpense() {
               />
             )}
           </View>
-        </>
-      ) : (
-        <ExpenseForm
-          onCancel={cancelHandler}
-          editingLabel={isEditing}
-          onsubmit={confirmHandler}
-        />
-      )}
     </View>
   );
 }

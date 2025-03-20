@@ -6,19 +6,24 @@ import { useFormAtom, useExpenseAtom } from "../../store/jotai";
 import CustomButton from "../UI/CustomButton";
 import { v4 as uuidv4 } from "uuid";
 import { Expense } from "../../types.ts/expenseDataTypes";
+import { useEffect } from "react";
+import { getFormattedDate } from "../../utils/dateFormat";
 
 type ExpenseProps = {
   onCancel: () => void;
   editingLabel?: boolean;
   onsubmit: (expensedata: Omit<Expense, "id">) => void;
+  existingExpense?: Expense;
 };
 
-export const ExpenseForm = ({
-  onCancel,
-  editingLabel,
-  onsubmit,
-}: ExpenseProps) => {
+export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}: ExpenseProps) => {
   const { newFormData, updateForm, resetForm } = useFormAtom();
+
+  useEffect(() => {
+    updateForm("amount", existingExpense?.amount.toString() || '');
+    updateForm("date", existingExpense?.date.toISOString().slice(0,10) || '');
+    updateForm("description", existingExpense?.description || '')
+  }, [existingExpense])
 
   const handleSubmit = () => {
     const formattedExpense = {

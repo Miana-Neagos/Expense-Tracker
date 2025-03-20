@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     // elevation: 4,
     borderWidth: 2,
     borderColor: globalStyles.colors.accent500,
-    minWidth: "20%",
+    minWidth: "25%",
     alignItems: "center",
     justifyContent: "center",
   },
