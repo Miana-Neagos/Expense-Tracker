@@ -30,10 +30,15 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
 
     const validationResults = validateExpenseInputs(newFormData);
 
+    if (!validationResults.isValid) {
+      console.error("Validation errors:", validationResults.errors);
+      return;
+    }
+
     const formattedExpense = {
-      amount: validationResults.data.amount,
+      amount: validationResults.data?.amount || 0,
       date: new Date(validationResults.data?.date || Date.now()),
-      description: validationResults.data.description,
+      description: validationResults.data?.description || '',
     };
     console.log("Formatted Expense: ", formattedExpense);
 
