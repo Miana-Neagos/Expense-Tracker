@@ -3,15 +3,17 @@ import { globalStyles } from "../../constants/styles";
 
 type InputProps = {
     label : string,
+    errorText?: string,
     textInputConfig? : TextInputProps;
     style? : StyleProp<ViewStyle | TextStyle>
 }
 
-const CustomInput = ({label, style,  textInputConfig} : InputProps) => {
+const CustomInput = ({label, errorText, style,  textInputConfig} : InputProps) => {
     return (
         <View style={[styles.inputContainer, style]}>
             <Text style={styles.label}>{label}</Text>
             <TextInput style={styles.input} {...textInputConfig}/>
+            {errorText && <Text style={styles.errorText}>{errorText}</Text>}
         </View>
     )
 }
@@ -35,6 +37,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto_400Regular',
         textAlignVertical: 'top',
     },
+      errorText: {
+        color: globalStyles.colors.error100,
+        marginTop: 4,
+        fontSize: 14,
+        fontFamily: "Roboto_400Regular",
+        textAlign: 'center'
+      },
 })
 export default CustomInput;
 

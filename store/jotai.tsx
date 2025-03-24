@@ -4,6 +4,12 @@ import DUMMY_EXPENSES from "../data/dummyExpenses";
 
 export const expenseAtom = atom<Expense[]>(DUMMY_EXPENSES);
 
+export const formErrorsAtom = atom<{
+  amount: string;
+  date: string;
+  description: string;
+}>({ amount: '', date: '', description: ''})
+
 export const useExpenseAtom = () => {
     const [expenses, setExpenses] = useAtom(expenseAtom);
 

@@ -12,6 +12,7 @@ export const globalStyles = {
     primary800: "#0c110b", // **Pure Blackened Green (Extra depth)**
     accent500: "#c09553", // Aged Gold (Rich, warm contrast)
     error50: "#e4b4a2", // Soft Clay (Subtle warm error)
+    error100: "#ED4337", // Soft error red
     error500: "#8c3d44", // Dark Brick (Sophisticated error tone)
     gray500: "#5c5147", // Warm Taupe (Balanced gray)
     gray700: "#3e342c", // Deep Brown-Gray (Strong neutral)

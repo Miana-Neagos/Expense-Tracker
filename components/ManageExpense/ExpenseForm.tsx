@@ -1,14 +1,12 @@
 import { View, StyleSheet, Text } from "react-native";
-import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import CustomInput from "./CustomInput";
 import { globalStyles } from "../../constants/styles";
-import { useFormAtom, useExpenseAtom } from "../../store/jotai";
+import { useFormAtom, useExpenseAtom, formErrorsAtom } from "../../store/jotai";
 import CustomButton from "../UI/CustomButton";
-import { v4 as uuidv4 } from "uuid";
 import { Expense } from "../../types.ts/expenseDataTypes";
 import { useEffect } from "react";
-import { getFormattedDate } from "../../utils/dateFormat";
 import { validateExpenseInputs } from "../../input-validation/validation-schema";
+import { useAtom } from "jotai";
 
 type ExpenseProps = {
   onCancel: () => void;
@@ -19,6 +17,7 @@ type ExpenseProps = {
 
 export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}: ExpenseProps) => {
   const { newFormData, updateForm, resetForm } = useFormAtom();
+  const [formErrors, setFormErrors] = useAtom(formErrorsAtom);
 
   useEffect(() => {
     updateForm("amount", existingExpense?.amount.toString() || '');
@@ -29,9 +28,16 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
   const handleSubmit = () => {
 
     const validationResults = validateExpenseInputs(newFormData);
+    console.log("Validation Results Errors: ", validationResults.errors);
+    
 
     if (!validationResults.isValid) {
-      console.error("Validation errors:", validationResults.errors);
+      // console.error("Validation errors:", validationResults.errors);
+      setFormErrors({
+        amount: validationResults.errors.amount || '',
+        date: validationResults.errors.date || '',
+        description: validationResults.errors.description || '',
+      });
       return;
     }
 
@@ -44,6 +50,7 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
 
     
     onsubmit(formattedExpense);
+    setFormErrors({amount: '', date: '', description: ''});
     resetForm();
   };
 
@@ -53,6 +60,7 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
       <View style={styles.dateAmountContainer}>
         <CustomInput
           label="Amount"
+          errorText={formErrors.amount}
           textInputConfig={{
             keyboardType: "decimal-pad",
             onChangeText: (input) => updateForm("amount", input),
@@ -62,6 +70,7 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
         />
         <CustomInput
           label="Date"
+          errorText={formErrors.date}
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
@@ -74,6 +83,7 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
       </View>
       <CustomInput
         label="Description"
+        errorText={formErrors.description}
         textInputConfig={{
           multiline: true,
           autoCorrect: false,
@@ -107,6 +117,8 @@ const styles = StyleSheet.create({
   dateAmountContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    gap: 20
   },
   rowInput: {
     flex: 1,

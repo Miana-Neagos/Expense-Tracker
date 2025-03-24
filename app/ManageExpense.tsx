@@ -4,11 +4,10 @@ import { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import IconButton from "../components/UI/IconButton";
 import { globalStyles } from "../constants/styles";
-import CustomButton from "../components/UI/CustomButton";
-import ExpensesItem from "../components/ExpenseItem";
 import { Expense } from "../types.ts/expenseDataTypes";
-import { useExpenseAtom, useFormAtom } from "../store/jotai";
+import { useExpenseAtom, useFormAtom, formErrorsAtom } from "../store/jotai";
 import { ExpenseForm } from "../components/ManageExpense/ExpenseForm";
+import { useAtom } from "jotai";
 
 export default function ManageExpense() {
   const navigation = useNavigation();
@@ -16,7 +15,8 @@ export default function ManageExpense() {
   const isEditing = !!id;
   const { expenses, addExpense, updateExpense, deleteExpense } =
     useExpenseAtom();
-  const { newFormData, resetForm } = useFormAtom();
+  const { resetForm } = useFormAtom();
+  const [formErrors, setFormErrors] = useAtom(formErrorsAtom);
 
   const targetedExpense = expenses.find((expense) => expense.id === id);
 
@@ -24,7 +24,9 @@ export default function ManageExpense() {
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
-    if (!isEditing) resetForm();
+    if (!isEditing) {
+      resetForm()
+      setFormErrors({ amount: "", date: "", description: "" })}
   }, [isEditing, navigation]);
 
   const deleteExpenseHandler = (id: string) => {
@@ -34,6 +36,7 @@ export default function ManageExpense() {
 
   const cancelHandler = () => {
     resetForm();
+    setFormErrors({ amount: "", date: "", description: "" });
     router.back();
   };
 
@@ -47,6 +50,7 @@ export default function ManageExpense() {
           date: expensedata.date,
         }),
       resetForm();
+      setFormErrors({ amount: "", date: "", description: "" });
     router.back();
   };
 
