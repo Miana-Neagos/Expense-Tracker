@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import CustomInput from "./CustomInput";
 import { globalStyles } from "../../constants/styles";
-import { useFormAtom, useExpenseAtom, formErrorsAtom } from "../../store/jotai";
+import { useFormAtom, useExpenseAtom } from "../../store/jotai";
 import CustomButton from "../UI/CustomButton";
 import { Expense } from "../../types.ts/expenseDataTypes";
 import { useEffect } from "react";
@@ -16,28 +16,27 @@ type ExpenseProps = {
 };
 
 export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}: ExpenseProps) => {
-  const { newFormData, updateForm, resetForm } = useFormAtom();
-  const [formErrors, setFormErrors] = useAtom(formErrorsAtom);
+  const {newFormData, updateForm, resetForm} = useFormAtom();
 
   useEffect(() => {
-    updateForm("amount", existingExpense?.amount.toString() || '');
-    updateForm("date", existingExpense?.date.toISOString().slice(0,10) || '');
-    updateForm("description", existingExpense?.description || '')
+    updateForm("amount", existingExpense?.amount.toString() || '', '');
+    updateForm("date", existingExpense?.date.toISOString().slice(0,10) || '', '');
+    updateForm("description", existingExpense?.description || '', '')
   }, [existingExpense])
 
   const handleSubmit = () => {
+    const raw = {
+      amount: newFormData.amount.value,
+      date: newFormData.date.value,
+      description: newFormData.description.value,
+    }
 
-    const validationResults = validateExpenseInputs(newFormData);
-    console.log("Validation Results Errors: ", validationResults.errors);
+    const validationResults = validateExpenseInputs(raw);
     
-
     if (!validationResults.isValid) {
-      // console.error("Validation errors:", validationResults.errors);
-      setFormErrors({
-        amount: validationResults.errors.amount || '',
-        date: validationResults.errors.date || '',
-        description: validationResults.errors.description || '',
-      });
+      updateForm('amount', raw.amount, validationResults.errors.amount || '');
+      updateForm('date', raw.date, validationResults.errors.date || '');
+      updateForm('description', raw.description, validationResults.errors.description || '');
       return;
     }
 
@@ -47,10 +46,9 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
       description: validationResults.data?.description || '',
     };
     console.log("Formatted Expense: ", formattedExpense);
-
     
     onsubmit(formattedExpense);
-    setFormErrors({amount: '', date: '', description: ''});
+    // setFormErrors({amount: '', date: '', description: ''});
     resetForm();
   };
 
@@ -60,35 +58,35 @@ export const ExpenseForm = ({onCancel, editingLabel, onsubmit, existingExpense}:
       <View style={styles.dateAmountContainer}>
         <CustomInput
           label="Amount"
-          errorText={formErrors.amount}
+          errorText={newFormData.amount.error}
           textInputConfig={{
             keyboardType: "decimal-pad",
             onChangeText: (input) => updateForm("amount", input),
-            value: newFormData.amount,
+            value: newFormData.amount.value,
           }}
           style={styles.rowInput}
         />
         <CustomInput
           label="Date"
-          errorText={formErrors.date}
+          errorText={newFormData.date.error}
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
             keyboardType: "number-pad",
             onChangeText: (input) => updateForm("date", input),
-            value: newFormData.date,
+            value: newFormData.date.value,
           }}
           style={styles.rowInput}
         />
       </View>
       <CustomInput
         label="Description"
-        errorText={formErrors.description}
+        errorText={newFormData.description.error}
         textInputConfig={{
           multiline: true,
           autoCorrect: false,
           onChangeText: (input) => updateForm("description", input),
-          value: newFormData.description,
+          value: newFormData.description.value,
         }}
       />
       <View style={styles.buttonContainer}>

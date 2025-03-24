@@ -4,12 +4,6 @@ import DUMMY_EXPENSES from "../data/dummyExpenses";
 
 export const expenseAtom = atom<Expense[]>(DUMMY_EXPENSES);
 
-export const formErrorsAtom = atom<{
-  amount: string;
-  date: string;
-  description: string;
-}>({ amount: '', date: '', description: ''})
-
 export const useExpenseAtom = () => {
     const [expenses, setExpenses] = useAtom(expenseAtom);
 
@@ -29,22 +23,45 @@ export const useExpenseAtom = () => {
     return {expenses, addExpense, updateExpense, deleteExpense};
 };
 
-export const formAtom = atom({
-  amount: '',
-  date: '',
-  description: '',
+// export const formAtom = atom({
+//   amount: '',
+//   date: '',
+//   description: '',
+// })
+
+type InputFields = {
+  value: string;
+  error: string;
+}
+
+type FormState = {
+  amount: InputFields;
+  date: InputFields;
+  description: InputFields; 
+}
+
+export const formAtom = atom<FormState>({
+  amount: {value: "", error: ""},
+  date: {value: "", error: ""},
+  description: {value: "", error: ""}
 })
 
 export const useFormAtom = () => {
   const [newFormData, setFormData] = useAtom(formAtom);
 
-  const updateForm = (key: 'amount' | 'date' | 'description', value: string) => {
-    setFormData((prevFormData) => ({...prevFormData, [key]:value}))
+  const updateForm = (key: keyof FormState, value: string, error: string = '') => {
+    setFormData((prevFormData) => ({...prevFormData, [key]: {value, error}}))
   };
 
   const resetForm = () => {
-    setFormData({amount: '', date: '', description: ''})
+    setFormData({
+      amount: {value: "", error: ""},
+      date: {value: "", error: ""},
+      description: {value: "", error: ""}
+    })
   }
 
   return {newFormData, updateForm, resetForm};
+  
 }
+
