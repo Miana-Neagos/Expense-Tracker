@@ -9,11 +9,13 @@ type InputProps = {
 }
 
 const CustomInput = ({label, errorText, style,  textInputConfig} : InputProps) => {
+    const isInvalid = !!errorText;
+
     return (
         <View style={[styles.inputContainer, style]}>
-            <Text style={styles.label}>{label}</Text>
-            <TextInput style={styles.input} {...textInputConfig}/>
-            <Text style={styles.errorText}> {errorText ? errorText : ''}</Text>
+            <Text style={[styles.label, isInvalid && styles.errorLabel]}>{label}</Text>
+            <TextInput style={[styles.input, isInvalid && styles.invalidInput]} {...textInputConfig}/>
+              <Text style={styles.errorText}> {errorText ? errorText : ''}</Text>
         </View>
     )
 }
@@ -21,13 +23,18 @@ const styles = StyleSheet.create({
     inputContainer: {
         justifyContent: 'flex-start',
         marginHorizontal: 15,
-        // gap: 3,
     },
     label: {
         marginBottom: 4,
         marginTop: 8,
         color: globalStyles.colors.primary50,
         fontFamily: 'Roboto_700Bold',
+    },
+    errorLabel: {
+        color: globalStyles.colors.error100,
+    },
+    invalidInput: {
+        backgroundColor: globalStyles.colors.primary10,
     },
     input: {
         backgroundColor: globalStyles.colors.primary50,
@@ -40,8 +47,6 @@ const styles = StyleSheet.create({
     },
       errorText: {
         color: globalStyles.colors.error100,
-        marginTop: 4,
-        padding: 2,
         fontSize: 12,
         fontFamily: "Roboto_400Regular",
         textAlign: 'left',

@@ -3,8 +3,8 @@ import { z } from "zod";
 export const expenseSchema = z.object({
   amount: z.coerce
     .number()
-    .positive("Amount must be greater than 0")
-    .refine((val) => val > 0, { message: "Amount must be greater than 0" }),
+    .positive("Amount is missing")
+    .refine((val) => val > 0, { message: "Amount is missing" }),
 
   date: z
     .string()
