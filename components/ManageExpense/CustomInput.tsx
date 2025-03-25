@@ -13,14 +13,15 @@ const CustomInput = ({label, errorText, style,  textInputConfig} : InputProps) =
         <View style={[styles.inputContainer, style]}>
             <Text style={styles.label}>{label}</Text>
             <TextInput style={styles.input} {...textInputConfig}/>
-            {errorText && <Text style={styles.errorText}>{errorText}</Text>}
+            <Text style={styles.errorText}> {errorText ? errorText : ''}</Text>
         </View>
     )
 }
 const styles = StyleSheet.create({
     inputContainer: {
-        justifyContent: 'center',
-        marginHorizontal: 20,
+        justifyContent: 'flex-start',
+        marginHorizontal: 15,
+        // gap: 3,
     },
     label: {
         marginBottom: 4,
@@ -40,9 +41,11 @@ const styles = StyleSheet.create({
       errorText: {
         color: globalStyles.colors.error100,
         marginTop: 4,
-        fontSize: 14,
+        padding: 2,
+        fontSize: 12,
         fontFamily: "Roboto_400Regular",
-        textAlign: 'center'
+        textAlign: 'left',
+        minHeight: "8%",
       },
 })
 export default CustomInput;
