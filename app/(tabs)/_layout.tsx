@@ -11,7 +11,7 @@ export default function TabLayout() {
         headerStyle: { backgroundColor: globalStyles.colors.primary200 },
         headerTintColor: globalStyles.colors.primary50,
         headerTitleAlign: "center",
-        tabBarStyle: { backgroundColor: globalStyles.colors.primary5002 },
+        tabBarStyle: { backgroundColor: globalStyles.colors.primary200 },
         tabBarActiveTintColor: globalStyles.colors.accent500,
         tabBarInactiveTintColor: globalStyles.colors.primary50,
         headerRight: () => (

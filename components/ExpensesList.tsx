@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   emptyContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 18,
+    // marginVertical: 18,
+    padding: 18,
   },
 });

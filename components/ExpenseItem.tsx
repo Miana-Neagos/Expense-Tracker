@@ -13,10 +13,10 @@ export default function ExpensesItem({ expense }: ExpenseItemProp) {
   };
 
   return (
-    <View>
+    <View style={styles.pressableWrapper}>
       <Pressable
         onPress={pressHandler}
-        //   style={({ pressed }) => pressed && styles.pressed}
+        style={({ pressed }) => pressed && styles.pressed}
         android_ripple={{ color: globalStyles.colors.gray700 }}
       >
         <View style={styles.container}>
@@ -58,26 +58,28 @@ export default function ExpensesItem({ expense }: ExpenseItemProp) {
 }
 
 const styles = StyleSheet.create({
+  pressableWrapper: {
+    overflow: "hidden",
+    marginBottom: 8,
+    borderRadius: 12,
+  },
   container: {
-    marginVertical: 4,
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: globalStyles.colors.primary5002,
+    backgroundColor: globalStyles.colors.primary10,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderRadius: 12,
     elevation: 4,
     alignItems: "center",
   },
   pressed: {
-    opacity: 0.75,
+    opacity: 0.8,
   },
   description: {
     fontSize: 16,
-    // color: globalStyles.colors.accent500,
   },
   itemText: {
-    color: globalStyles.colors.primary50,
+    color: globalStyles.colors.primary400,
     padding: 3,
   },
   dateText: {
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: globalStyles.colors.primary50,
     borderRadius: 8,
-    // elevation: 4,
     borderWidth: 2,
     borderColor: globalStyles.colors.accent500,
     minWidth: "25%",
