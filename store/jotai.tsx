@@ -1,14 +1,34 @@
 import { atom, useAtom } from "jotai";
 import { Expense } from "../types.ts/expenseDataTypes";
 import DUMMY_EXPENSES from "../data/dummyExpenses";
+import { fetchExpenses } from "../firebase/expenses";
+import { db } from "../firebase/firebase-config";
+import { push, ref } from "firebase/database";
 
-export const expenseAtom = atom<Expense[]>(DUMMY_EXPENSES);
+
+
+// export const expenseAtom = atom<Expense[]>(DUMMY_EXPENSES);
+export const expenseAtom = atom<Expense[]>([]);  // Initialize with an empty array, no dummy data
+const EXPENSES_PATH = "expenses";
 
 export const useExpenseAtom = () => {
     const [expenses, setExpenses] = useAtom(expenseAtom);
 
-    const addExpense = (expenseData: Expense) => {
-        const newExpense = { ...expenseData}
+    const fetchDbExpenses = async () => {
+      const fetchedExpenses = await fetchExpenses();
+      setExpenses(fetchedExpenses);
+    }
+
+    const addExpense = (expenseData: Omit<Expense, 'id') => {
+        const newExpenseData = await push(ref(db, EXPENSES_PATH), {
+          ...expenseData,
+          date: expenseData.date.toISOString(),
+        })
+
+        const newExpense: Expense = {
+          id: newExpenseData.key!,
+          ...expenseData,
+        }
         setExpenses(prevExpenses => [newExpense, ...prevExpenses])
     };
 
@@ -20,14 +40,9 @@ export const useExpenseAtom = () => {
         setExpenses( prevExpenses => prevExpenses.filter(expense => expense.id !== id));
       };
 
-    return {expenses, addExpense, updateExpense, deleteExpense};
+    return {expenses, addExpense, updateExpense, deleteExpense, fetchDbExpenses};
 };
 
-// export const formAtom = atom({
-//   amount: '',
-//   date: '',
-//   description: '',
-// })
 
 type InputFields = {
   value: string;
